@@ -1,0 +1,25 @@
+{
+    "cells": [
+        {
+            "language": "markdown",
+            "source": [
+                "```Bash\ncd GRKResearchPlatform\n\ncd grk \n\nnpm i @nestjs/core @nestjs/common @nestjs/platform-express reflect-metadata typescript\n\n\nnpm install  -g @nestjs/cli\n\nnest new grk-research\n\ncd grk-research\n\nvi tsconfig.json\n################################\n{\n    \"compilerOptions\": {\n        \"module\": \"CommonJS\",\n        \"target\": \"ESNEXT\",\n        \"experimentalDecorators\":true,\n        \"emitDecoratorMetadata\":true\n    }\n}\n################################\ncd grk\n\nnpm install\n## DB \nnpm install @nestjs/mongoose mongoose\n## 핸들바 UI\nnpm i express-handlebars@6.0.3\n\n### Config 의존성 패키지\nnpm i @nestjs/config\n\n## yaml 설치 \nnpm i js-yaml\nnpm i -D @types/js-yaml\n\nnpm run start:dev\n\n```\n### (1) envs folder (config.yml, dev.env,local.env, prod.env)생성 \n### (2) package.json > strat 수정\n```JSON\n    \"start\": \"NODE_ENV=local nest start\",\n    \"start:dev\": \"NODE_ENV=dev nest start --watch\",\n    \"start:debug\": \"nest start --debug --watch\",\n    \"start:prod\": \"NODE_ENV=prod&& node dist/main\",\n```\n\n### (3) src/configs/(config.ts, common.ts, dev.ts, local.ts, prod.ts) 생성 \n\n### (4) app.controller.ts, app.module.ts 생성 \n\n"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "markdown",
+            "source": [
+                ">chapter 10 부터 grk platform 으로 개발을 하도록 하자. \n향후  ch 9, 8 을 review 하면서 다시 grk 만들것. \n\n- AuthModule, AuthController, AuthService 클래스로 구성 \n- UserService 에는 회원정보 추가,수정,삭제 등의 method 있음. \n  \n## 10.1.2 User module 생성\n\n```bash\n\nnest new grk\ncd grk \nnest g module user\nnest g controller user --no-spec \nnest g service user --no-spec\nnpm install sqlite3 typeorm @nestjs/typeorm\n\n# nest g module project\n\nnest g controller project --no-spec \nnest g service project --no-spec\n## 기존의 task,user,project 폴더 와 같이 파일 만든후 appmodule 에서 설정을 수정할것 \n\n\nnpm install @nestjs/mongoose mongoose\n\n```\n### 10.2.1 엔티티 생성\n```TS\nimport { Column, Entity, PrimaryGeneratedColumn} from 'typeorm'\n@Entity()\nexport class User {\n    @PrimaryGeneratedColumn()\n    id? : number\n\n    @Column({ unique: true})\n    email : string \n\n    @Column()\n    password: string\n\n    @Column()\n    username: string\n\n    @Column()\n    role: string\n\n    @Column({ type: \"datetime\", default: () => \"CURRENT_TIMESTAMP\"})\n    createdDt: Date= new Date()\n}\n```\n# 🤔TypeORM 이란\n\nNode.js 환경에서 TypeScript 를 사용하여 데이터베이스와 상호작용하는데 사용되는 Object-Relational Mapping(ORM) 라이브러리임. \n객체와 관계형 데이터베이스의 테이블 사이의 불일치를 해결해 주는 역할을 함. \n개발자가 데이터 베이스의 복잡한 SQL 쿼리를 직접 작성하지 않고도 객체 지향적인 코드를 사용하여 데이터를 조작할수 있게 함. \n- MySQL, PostgreSQL, SQLite, Oracle 등을 지원함. \n- 데이터 테이블과 매핑 \n- @Entity(), @Column(), @PrimaryGeneratedColum() 등의 데코레이터를 사용하여 클래스 속성을 데이터베이스 테이블의 컬럼과 연결함. \n- sql 쿼리문을 직접 작성하지 않고도 객체를 통해 데이터베이스를 조작가능. \n- 데이터 저장: repository.save(entity)\n- 데이터 조회 : repository.find() , findOne() 사용 \n- 관계설정 가능 \n    @OneToOne(), @OneToMany(), @ManyToMany() 로 테이블 간 관계 정의 가능\n\n\n### (2) 엔터티를 적용할 유저서비스 생성 \n\n"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "typescript",
+            "source": [
+                ""
+            ],
+            "outputs": []
+        }
+    ]
+}
