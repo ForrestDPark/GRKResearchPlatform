@@ -16,6 +16,8 @@ import { User } from './user.entity'
 import { ConfigService } from '@nestjs/config'
 import chalk from 'chalk'
 
+
+
 @Injectable()
 export class UserService {
     constructor(
@@ -52,6 +54,21 @@ export class UserService {
     // user 정보 삭제 
     deleteUser(email : any) {
         return this.userRepository.delete({ email })
+    }
+
+    // Google 접속 시 유저 검색 및 회원 가입 
+    async findByEmailOrSave(email, username, providerId): Promise<User> {
+        const foundUser = await this.getUser(email)
+        if (foundUser) {
+            return foundUser
+        }
+        // 기존 회원이 아닌경우 db 저장 
+        const newUser = await this.userRepository.save({
+            email,
+            username,
+            providerId
+        })
+        return newUser
     }
 
 /************************************************ */

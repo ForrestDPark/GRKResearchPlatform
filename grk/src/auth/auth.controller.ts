@@ -1,4 +1,4 @@
-
+// src/auth/auth.controller.ts
 // API 라이브러리 
 import { 
     Controller, Body, Get, Post,
@@ -13,8 +13,8 @@ import { CreateUserDto, UpdateUserDto } from 'src/user/user.dto';
 import { AuthService } from './auth.service';
 import chalk from 'chalk';
 
-// 가드 사용 임포트 
-import { AuthenticatedGuard, LocalAuthGuard, LoginGuard } from './auth.guard';
+// 가드 사용 임포트 (local, google )
+import { AuthenticatedGuard, LocalAuthGuard, LoginGuard, GoogleAuthGuard } from './auth.guard';
 
 
 @Controller('auth')
@@ -93,6 +93,22 @@ export class AuthController {
     @Get('test-guard2')
     testGuardWithSession(@Request() req){
         return req.user
+    }
+
+    // Google login 
+    @Get('to-google')
+    @UseGuards(GoogleAuthGuard)
+    // 구글 로그인 창을 띄우는 메서드 
+    async googleAuth(@Request() req) {
+        console.log(" 구글 로그인 ")
+    }
+
+    @Get('google')
+    @UseGuards(GoogleAuthGuard)
+    // 구글 로그인 성공시 실행하는 라우터 메서드 
+    async googleAuthRedirect(@Request() req , @Response() res) {
+        const { user } = req
+        return res.send(user)
     }
 
 

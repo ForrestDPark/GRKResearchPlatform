@@ -10,8 +10,11 @@ import { PassportModule } from '@nestjs/passport';
 import { SessionSerializer } from './session.serializer';
 import { LocalStrategy } from './local.strategy';
 
+// Google strategy 등록 
+import { GoogleStrategy } from './google.strategy';
 
-console.log(chalk.red('AuthModule Start[[[인증]]]]'))
+
+console.log(('AuthModule Start[[[인증]]]]'))
 
 @Module({
   imports: [
@@ -21,7 +24,9 @@ console.log(chalk.red('AuthModule Start[[[인증]]]]'))
   providers: [
     AuthService,
     LocalStrategy,
-    SessionSerializer
+    SessionSerializer,
+    GoogleStrategy
+
   ],
   controllers: [AuthController]
 })

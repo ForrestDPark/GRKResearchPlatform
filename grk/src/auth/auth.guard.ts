@@ -8,6 +8,22 @@ import { AuthGuard } from '@nestjs/passport';
 import { AuthService } from './auth.service'
 
 @Injectable()
+// Google stratagey Guard 상속 
+export class GoogleAuthGuard extends AuthGuard('google'){
+  async canActivate(context: ExecutionContext):  Promise<boolean>  {
+    const result = (await super.canActivate(context)) as boolean
+
+    // context 에서 request 를 추출 함. 
+    const request = context.switchToHttp().getRequest()
+    
+    // 세션 사용하여 인증 유지 
+    await super.logIn(request)
+    return result
+      
+  }
+}
+
+@Injectable()
 // AuthGuard 상속 
 export class LocalAuthGuard extends AuthGuard('local') {
   async canActivate(context: any):   Promise<boolean>  {
