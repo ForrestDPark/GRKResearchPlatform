@@ -11,8 +11,6 @@ import chalk from 'chalk'
 // User DTO import 
 import { CreateUserDto, UpdateUserDto } from './user.dto'
 
-
-
 @Controller('user') 
 export class UserController {
   constructor(private userService: UserService) {}
