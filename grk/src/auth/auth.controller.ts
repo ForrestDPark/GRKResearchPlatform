@@ -11,7 +11,7 @@ import { CreateUserDto, UpdateUserDto } from 'src/user/user.dto';
 
 // 인증 서비스 임포트 
 import { AuthService } from './auth.service';
-import chalk from 'chalk';
+// import chalk from 'chalk';
 
 // 가드 사용 임포트 (local, google )
 import { AuthenticatedGuard, LocalAuthGuard, LoginGuard, GoogleAuthGuard } from './auth.guard';
@@ -24,7 +24,7 @@ export class AuthController {
     // 회원가입
     @Post('register')
     async register(@Body() userDto: CreateUserDto) {
-        console.log(chalk.yellow(" >> register start"))
+        console.log((" >> register start"))
         return await this.authService.register(userDto)
     }
 
@@ -32,7 +32,7 @@ export class AuthController {
     @Post('login')
     async login(@Request() req, @Response() res) {
         
-        console.log(chalk.blue(" \n >>> login service "))
+        console.log((" \n >>> login service "))
         // validateUser
         const userInfo = await this.authService.validateUser(
             req.body.email,
@@ -41,7 +41,7 @@ export class AuthController {
         console.log('user info :',userInfo)
         // 유저 정보가 있으면, 쿠키 정보를 response 저장 
         if (userInfo) {
-            console.log(chalk.red('쿠키를 만듭니다!!'))
+            console.log(('쿠키를 만듭니다!!'))
             
             // login 이라는 이름의 쿠키를 만듬. (user email, password 가 있음. )
             res.cookie('login', JSON.stringify(userInfo), {
@@ -53,7 +53,7 @@ export class AuthController {
             })
             res.status(HttpStatus.OK)
         }
-        console.log(chalk.cyanBright("Login success!!"))
+        console.log(("Login success!!"))
         return res.send({ message: 'login success'})
     } 
  
@@ -62,7 +62,7 @@ export class AuthController {
     @Post('login2')
     async login2(@Request() req, @Response() res) {
 
-        console.log(chalk.green(" >> login2 process start"))
+        console.log((" >> login2 process start"))
         console.log('login2에서 쿠키 확인',req.cookies)
         // 쿠키정보는 없지만 request에 user 정보가 있다면 응답값에 쿠키 정보 추가 
         if (!req.cookies['login'] && req.user) {
@@ -85,7 +85,7 @@ export class AuthController {
     @UseGuards(LocalAuthGuard) // login3 핸들러 도착전에 이미 검증을 함. 
     @Post('login3')
     login3(@Request() req ) {
-        console.log(chalk.green(" >> 사용자 인증이 되었습니다. "))
+        console.log((" >> 사용자 인증이 되었습니다. "))
         return req.user
     }
 

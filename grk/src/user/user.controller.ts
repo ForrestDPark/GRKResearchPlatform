@@ -6,7 +6,7 @@ import { UserService } from './user.service'
 
 // TypeORM setting 
 import { User } from './user.entity'
-import chalk from 'chalk'
+// import chalk from 'chalk'
 
 // User DTO import 
 import { CreateUserDto, UpdateUserDto } from './user.dto'
@@ -17,7 +17,7 @@ export class UserController {
 
   @Post('/create') 
   createUser(@Body() user: CreateUserDto) {
-    console.log(chalk.yellowBright(">> create 실행"))
+    // console.log(chalk.yellowBright(">> create 실행"))
     return this.userService.createUser(user)
   }
   @Get('/getUser/:email')
@@ -28,7 +28,7 @@ export class UserController {
   }
   @Put('/update/:email')
   updateUser(@Param('email') email:string, @Body() user: UpdateUserDto) {
-    console.log(chalk.yellow(" update 쿼리에 들어갈 user info"))
+    // console.log(chalk.yellow(" update 쿼리에 들어갈 user info"))
     console.log(user)
     return this.userService.updateUser(email,user)
   }

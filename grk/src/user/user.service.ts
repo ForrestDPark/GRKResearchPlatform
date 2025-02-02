@@ -14,7 +14,7 @@ import { InjectRepository } from '@nestjs/typeorm'
 import { Repository } from 'typeorm'
 import { User } from './user.entity'
 import { ConfigService } from '@nestjs/config'
-import chalk from 'chalk'
+// import chalk from 'chalk'
 
 
 
@@ -40,9 +40,9 @@ export class UserService {
     }
     // user update (_user 는 수정된 user 객체임 )
     async updateUser(email, _user) {
-        console.log(chalk.yellow(">> Select 로 해당메일의 user 찾음 "))
+        // console.log(chalk.yellow(">> Select 로 해당메일의 user 찾음 "))
         const user : User = await this.getUser(email)
-        console.log(chalk.yellow(">> 수정하려는 유저 정보 "))
+        // console.log(chalk.yellow(">> 수정하려는 유저 정보 "))
         console.log(_user)
 
         user.username = _user.username

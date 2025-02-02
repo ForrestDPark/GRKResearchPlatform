@@ -7,7 +7,7 @@ import { UserService } from 'src/user/user.service';
 import * as bcrypt from 'bcrypt'
 // import { User } from 'src/user/user.schema';
 import { User } from 'src/user/user.entity';
-import chalk from 'chalk';
+// import chalk from 'chalk';
 
 
 @Injectable() // provider 
@@ -18,7 +18,7 @@ export class AuthService {
         // 1. 이미 가입된 유저 있는지 체크 
         const user = await this.userService.getUser(userDto.email)
         if (user) {
-            console.log(chalk.red("해당 유저 있음."))
+            console.log(("해당 유저 있음."))
             // 이미 가입된 유저 있을 경우 에러 발생 
             throw new HttpException(
                 '해당 유저가 이미 있습니다. ',
@@ -48,20 +48,20 @@ export class AuthService {
 
     // 회원 검증 
     async validateUser(email: string, password: string) {
-        console.log(chalk.red(" >> auth.service.ts >> validateUser 실행"))
+        console.log((" >> auth.service.ts >> validateUser 실행"))
         const user = await this.userService.getUser(email)
         
         
         // 이메일로 유저 정보를 받음. 
         if (!user) { // 유저가 없는 경우 -> 검증 실패 
-            console.log(chalk.red(" >> user 가 없습니다. 검증실패"))
+            console.log((" >> user 가 없습니다. 검증실패"))
             return null
         }
         const { password: hashedPassword, ...userInfo } = user
 
         if (bcrypt.compareSync(password, hashedPassword)) {
             // password 일치 
-            console.log(chalk.blue(" >> user 가 있습니다. ",userInfo))
+            console.log(" >> user 가 있습니다. ",userInfo)
             return userInfo
         }
         throw new HttpException('비밀번호가 일치하지 않습니다.', HttpStatus.UNAUTHORIZED);
