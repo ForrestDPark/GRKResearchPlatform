@@ -10,7 +10,7 @@ import { MulterModule } from '@nestjs/platform-express';
 import { join } from 'path';
 
 // 웹소켓 체팅을 한임포트 
-import { ProjectGateway } from './project.gateway';
+import { ProjectGateway,RoomGateway } from './project.gateway';
 
 
 
@@ -31,6 +31,8 @@ import { ProjectGateway } from './project.gateway';
         ProjectService, ProjectMongoRepository,
         // 웹소켓 게이트 웨이 프로바이더 
         ProjectGateway,
+        // 채팅방 리스트 게이트웨이 프로바이더 
+        RoomGateway,
 
     ],
     exports: [ProjectService],

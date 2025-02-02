@@ -40,6 +40,8 @@ import { join } from 'path';
 import { Type } from 'class-transformer';
 import { ProjectModule } from './project/project.module';
 
+
+
 console.log(chalk.red('[ENVIRONMENT SETTING]: '+ process.env.NODE_ENV))
 @Module({
   imports: [
