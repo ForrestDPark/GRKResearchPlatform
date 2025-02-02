@@ -6,11 +6,33 @@ import { ProjectService } from './project.service';
 import { ProjectController } from './project.controller';
 import { ProjectMongoRepository } from './project.repository';
 import { ProjectSchema } from './project.schema';
+import { MulterModule } from '@nestjs/platform-express';
+import { join } from 'path';
+
+// 웹소켓 체팅을 한임포트 
+import { ProjectGateway } from './project.gateway';
+
+
 
 @Module({
-    imports: [MongooseModule.forFeature([{ name: Project.name, schema: ProjectSchema }])],
+    imports: 
+    [
+        MongooseModule.forFeature(
+        [{ name: Project.name, schema: ProjectSchema }]),
+    
+        MulterModule.register({
+        dest:join(__dirname,'..','..','uploads'),
+
+    }),
+    
+    ],
     controllers: [ProjectController],
-    providers: [ProjectService, ProjectMongoRepository],
+    providers: [
+        ProjectService, ProjectMongoRepository,
+        // 웹소켓 게이트 웨이 프로바이더 
+        ProjectGateway,
+
+    ],
     exports: [ProjectService],
 })
 export class ProjectModule {}

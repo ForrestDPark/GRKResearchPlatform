@@ -2,7 +2,7 @@ import { Module } from '@nestjs/common';
 import chalk
  from 'chalk';
 // Config 환경변수 
-import { ConfigModule } from '@nestjs/config';
+import { ConfigModule, ConfigService } from '@nestjs/config';
 import { ConfController } from './conf.controller';
 import config from './configs/config'
 import { WeatherModule } from './weather/weather.module';
@@ -33,6 +33,13 @@ import { TaskSchema, Task } from './task/task.schema';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AuthModule } from './auth/auth.module';
 
+
+// Serve-static module 
+import { ServeStaticModule } from '@nestjs/serve-static';
+import { join } from 'path';
+import { Type } from 'class-transformer';
+import { ProjectModule } from './project/project.module';
+
 console.log(chalk.red('[ENVIRONMENT SETTING]: '+ process.env.NODE_ENV))
 @Module({
   imports: [
@@ -47,6 +54,8 @@ console.log(chalk.red('[ENVIRONMENT SETTING]: '+ process.env.NODE_ENV))
       expandVariables: true // 확장변수 옵션 추가 
     }),
     WeatherModule,
+
+    // sqlite 를 위한 TypeORM 세팅 
     TypeOrmModule.forRoot({
       type: 'sqlite',
       database: 'user-auth.sqlite', //데이터 베이스 파일명 
@@ -54,6 +63,18 @@ console.log(chalk.red('[ENVIRONMENT SETTING]: '+ process.env.NODE_ENV))
       synchronize: true, // 데이터 베이스에 스키마를 동기화 
       logging : true // sql 실행 로그 확인 
     }),
+    // postgreSQL 을 위한 TypeORM 세팅 
+    // TypeOrmModule.forRootAsync({
+    //   imports : [AppModule],
+    //   inject: [ConfigModule],
+    //   useFactory : (configService:ConfigService) => {
+    //     const databaseConfig = configService.get<any>('database')
+    //     return {
+    //       ...databaseConfig
+    //     }
+    //   }
+    // }),
+
 
     // 애플리케이션 전체에서 사용할수 잇는 몽고디비 설정 구성, 연결 초기화 (기본연결 -> blog)
     // MongooseModule.forRoot(
@@ -84,7 +105,18 @@ console.log(chalk.red('[ENVIRONMENT SETTING]: '+ process.env.NODE_ENV))
     ]),
     // UserModule 을 주입
     UserModule,
-    AuthModule
+    
+    //인증 모듈 추가
+    AuthModule,
+
+    // 정적 서버 서비스 를 위한 라이브러리 주입 
+    ServeStaticModule.forRoot({
+      rootPath: join(__dirname, '...','uploads'), // 실제 파일존재 디렉터리
+      serveRoot: '/uploads' // url 뒤에 붙을 경로 지정 
+    }),
+    //프로젝트 모듈 
+    ProjectModule,
+
 
   ],
   controllers: [

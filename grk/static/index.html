@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>GRK Research Project Chat Room</title>
+    </head>
+    <body>
+        <h2> Simple chat</h2>
+        <div id="chat">GRK Chat</div>
+
+        <input type="text" id="message" placeholder="input your message">
+        <button onclick="sendMessage()">전송</button>
+
+        
+    </body>
+    <!-- jquery 로드 -->
+    <script src = "http://code.jquery.com/jquery-3.6.1.slim.js"></script>
+    <!-- socket.io 클라이언트 로드  -->
+    <script src="http://localhost:3000/socket.io/socket.io.js"></script>
+    <script>
+        // socket.io 인스턴스 생성 
+        const socket =io('http://localhost:3000/project/chat')
+
+        const nickname = prompt('input your nickname')
+
+
+        // 전송 버튼 클릭 시 입력된 글을 message 이벤트로 보냄 
+        function sendMessage() {
+            // message 창에 입력된 값 할당
+            const message = $('#message').val()
+
+            $('#chat').append(`<div> 나 : ${message}</div>`)
+
+            // 채팅 소켓의 message 로 방출 
+            socket.emit('message', {message, nickname})
+            
+            $('#message').val('') // 입력창 비우기
+        }
+        socket.on('connect', () => {
+            console.log('connected')
+        })
+
+        socket.on('message',(message) => {
+            $('#chat').append(`<div>${message}</div>`)
+        })
+
+    </script>
+
+</html>

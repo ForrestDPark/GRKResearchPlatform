@@ -17,9 +17,12 @@ import { ValidationPipe } from '@nestjs/common'
 import * as session from 'express-session'
 import * as passport from 'passport'
 
+// Static Asset 설정
+import { NestExpressApplication } from '@nestjs/platform-express';
+import { join } from 'path';
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule);
+  const app = await NestFactory.create<NestExpressApplication>(AppModule);
   // 익스프레스 json 
   app.use(express.json())
 
@@ -47,6 +50,14 @@ async function bootstrap() {
   app.use(passport.initialize())
   app.use(passport.session())
 
+  // StaticAsset 설정  : 정적 파일 경로 지정 
+  app.useStaticAssets(join(__dirname, '..', 'uploads'), {
+    prefix:'/uploads/'
+  })
+  
+  // HTML form 파일을 제공할 staticAsset 
+  app.useStaticAssets(join(__dirname,'..','static'))
+  
   
   await app.listen(configService.get("SERVER_PORT"), () => {console.log("Server start!")})
 }

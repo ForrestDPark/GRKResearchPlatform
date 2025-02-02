@@ -1,92 +1,17 @@
-# GRK Platform development Documentation
-
-## 1. Environment  Setting
-
-
-
-```Bash
-## 1. NestJS directory generation
-cd GRKResearchPlatform
-cd grk
-
-## 2. NPM install 
-npm i @nestjs/core @nestjs/common @nestjs/platform-express reflect-metadata typescript
-npm install  -g @nestjs/cli
-nest new grk-research
-
-cd grk-research
-
-
-## 3. Configuration 
-vi tsconfig.json
-################################
-{
-    "compilerOptions": {
-        "module": "CommonJS",
-        "target": "ESNEXT",
-        "experimentalDecorators":true,
-        "emitDecoratorMetadata":true
-    }
-}
-################################
-cd grk
-
-## 4. Cash refresh and npm dev start 
-
-npm install
-## DB 
-npm install @nestjs/mongoose mongoose
-## 핸들바 UI
-npm i express-handlebars@6.0.3
-
-### Config 의존성 패키지
-npm i @nestjs/config
-
-## yaml 설치 
-npm i js-yaml
-npm i -D @types/js-yaml
-
-npm run start:dev
-
-```
-
-## 2. Directory and Minor tuning
-
-### (1) envs folder (config.yml, dev.env,local.env, prod.env)생성 
-### (2) package.json > strat 수정
-```JSON
-    "start": "NODE_ENV=local nest start",
-    "start:dev": "NODE_ENV=dev nest start --watch",
-    "start:debug": "nest start --debug --watch",
-    "start:prod": "NODE_ENV=prod&& node dist/main",
-```
-### (3) src/configs/(config.ts, common.ts, dev.ts, local.ts, prod.ts) 생성 
-### (4) app.controller.ts, app.module.ts 생성 
-### (5) configs 폴더 복사 dev.ts 정리 
-### (6) project, task, user 폴더 생성 각각 controller.model.repository,schema,service 생성 후 app.module 에서 필요한 import 설정 추가, provider 추가 
-### (7) TypeORM 추가 (RDB 전환용 라이블러리)
-
-
-
-
-# 3. Login Authentication and Sign up Documentation 
+# BE_10 로그인 회원가입 인증 
 
 - Authentication(인증) : 누구인지 확인 
 - Authorization(인가) : 인증된 사용자의 권한을 확인하는 절차
 - 쿠키, 세션을 사용한 인증 기능 구현 
 - NestJS 에서는 롤기반의 권한 관리 제공 
-- https://docs.nestjs.com/security/authorization 
-
->chapter 10 부터 grk platform 으로 개발을 하도록 하자. 
-향후  ch 9, 8 을 review 하면서 다시 grk 만들것. 
-
 - AuthModule, AuthController, AuthService 클래스로 구성 
 - UserService 에는 회원정보 추가,수정,삭제 등의 method 있음. 
+
+📌 참고 https://docs.nestjs.com/security/authorization 
   
 ## 10.1.2 User module 생성
 
-```bash
-
+```bash 
 nest new grk
 cd grk 
 nest g module user
@@ -148,6 +73,7 @@ Node.js 환경에서 TypeScript 를 사용하여 데이터베이스와 상호작
 - 관계설정 가능 
     @OneToOne(), @OneToMany(), @ManyToMany() 로 테이블 간 관계 정의 가능
 
+> ✅ **TypeORMModule.forRoot() 와 TypeORMModule.forFeature() 의 차이**
 
 
 | 기능             | `TypeOrmModule.forRoot()`                                                                                                 | `TypeOrmModule.forFeature()`                                                                                              |
@@ -455,8 +381,6 @@ curl -X POST \
 > {"message":["email must be an email"],"error":"Bad Request","statusCode":400}
 
 
-
-# 참고 
-1. [이메일 인증 참고 1](https://velog.io/@kwontae1313/NestJS-%EC%9D%B4%EB%A9%94%EC%9D%BC-%EB%B3%B4%EB%82%B4%EA%B8%B0)
-2. [이메일 인증 참고2](https://suyeonme.tistory.com/108)
-3. [이메일 인증 참고 3](https://yoonchan1121.tistory.com/140)
+참고 1. [이메일 인증 참고 1](https://velog.io/@kwontae1313/NestJS-%EC%9D%B4%EB%A9%94%EC%9D%BC-%EB%B3%B4%EB%82%B4%EA%B8%B0)
+[이메일 인증 참고2](https://suyeonme.tistory.com/108)
+[이메일 인증 참고 3](https://yoonchan1121.tistory.com/140)
