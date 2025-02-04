@@ -51,26 +51,31 @@ export class RoomGateway {
 
   // -------------- 채팅방 조인후 message 전송 click 시 핸들러 --------------
   @SubscribeMessage('message')
-  handleMessageToRoom(socket: Socket, data) {
-    const { nickname, room, message, isSelf } = data
-    console.log(data)
-    // 나 이외에 사람에게 데이터 전송 
-    socket.broadcast.to(room).emit('message', {
-      message: `${nickname} : ${message}`,
-      isSelf: false // 
-    })
+  handleMessageToRoom(socket: Socket, data: { message: string; nickname: string; room: string; isSelf: boolean }) {
+    const { nickname, room, message, isSelf } = data;
+    console.log(data);
 
-    // 메시지 저장 
+    // 클라이언트에게 받은 isSelf 값을 그대로 사용
+    this.server.to(room).emit('message', {
+      message: message,
+      nickname: nickname,
+      isSelf: isSelf, // 클라이언트에서 받은 isSelf 값을 그대로 전달
+      sender:socket.id
+      
+    });
+
+    // 메시지 저장
     if (!this.roomMessage[room]) {
-      this.roomMessage[room] =[]
+      this.roomMessage[room] = [];
     }
     this.roomMessage[room].push({
-      message: `${nickname} : ${message}`,
-      isSelf: isSelf, // 클라이언트에게 받은값을 저장 
-      sender: socket.id
-    })
+      message: message,
+      nickname: nickname,
+      isSelf: isSelf, // 클라이언트에게 받은 값을 저장
+      sender: socket.id,
+    });
 
-    console.log(`${message}`)
+    console.log(`${message}`);
   }
 
 
@@ -92,21 +97,34 @@ export class RoomGateway {
   // -------------- joinRoom 핸들러 --------------
   @SubscribeMessage('joinRoom')
   handleJoinRoom(socket: Socket, data) {
-    const { nickname, room, toLeaveRoom } = data
-    // 유저 맵에 socket.id 를 key 로 nickname 저장 
-    this.userMap.set(socket.id,nickname)
+    const { nickname, room, toLeaveRoom } = data;
+    console.log(`joinRoom 요청 수신! socket.id: ${socket.id}, 방: ${room}, 나갈 방: ${toLeaveRoom}`);
 
-    // 기존방에서 퇴장 
-    socket.leave(toLeaveRoom)
-    this.chatGateway.server.emit('notice', {
-      message: `${nickname}님이 ${room} 방에 입장 했습니다. `
-    })
-    // 새로운 방 입장. 
-    socket.join(room)
+    // 유저 맵 업데이트
+    this.userMap.set(socket.id, nickname);
 
-    // 저장된 메세지 전송 
-    if (this.roomMessage[room]) {
-      socket.emit('messageHistory', this.roomMessage[room])
+    // 기존방 퇴장
+    if (toLeaveRoom) {
+        socket.leave(toLeaveRoom);
+        console.log(`${nickname}님이 ${toLeaveRoom} 방에서 나갔습니다.`);
     }
-  }
+
+    // 새로운 방 입장
+    socket.join(room);
+    console.log(`${nickname}님이 ${room} 방에 입장했습니다.`);
+
+    // 채팅방 알림 전송
+    this.chatGateway.server.emit('notice', {
+        message: `${nickname}님이 ${room} 방에 입장 했습니다. `
+    });
+
+    // 저장된 메시지 전송
+    if (this.roomMessage[room]) {
+        socket.emit('messageHistory', this.roomMessage[room]);
+    }
+
+    // 현재 유저가 속한 방 확인
+    console.log(`현재 ${nickname}의 방 목록:`, socket.rooms);
+}
+
 }

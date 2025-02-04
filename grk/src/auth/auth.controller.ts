@@ -108,7 +108,12 @@ export class AuthController {
     // 구글 로그인 성공시 실행하는 라우터 메서드 
     async googleAuthRedirect(@Request() req , @Response() res) {
         const { user } = req
-        return res.send(user)
+
+        // 사용자 정보를 쿼리 파라미터에 담아 리다이렉트 
+        const redirectURL = `http://localhost:3000/?user=${JSON.stringify(user)}`
+        console.log('\n 구글 유저 정보 : \n',user)
+
+        return res.redirect(redirectURL)
     }
 
 

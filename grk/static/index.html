@@ -1,1 +1,70 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"/><link rel="icon" href="/favicon.ico"/><meta name="viewport" content="width=device-width,initial-scale=1"/><meta name="theme-color" content="#000000"/><meta name="description" content="Web site created using create-react-app"/><link rel="apple-touch-icon" href="/logo192.png"/><link rel="manifest" href="/manifest.json"/><title>React App</title><script defer="defer" src="/static/js/main.f3f34ecd.js"></script><link href="/static/css/main.f855e6bc.css" rel="stylesheet"></head><body><noscript>You need to enable JavaScript to run this app.</noscript><div id="root"></div></body></html>
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>GRK Research Project Chat Room</title>
+    <link rel="stylesheet" href="style.css">
+
+</head>
+
+<body>
+    <!-- 로그인/회원가입 폼 -->
+    <div id="auth-container" class="auth-container">
+        <div id="login-form" class="auth-form">
+            <h2>로그인</h2>
+            <input type="email" placeholder="이메일" id="login-email">
+            <input type="password" placeholder="비밀번호" id="login-password">
+            <button id="login-button">로그인</button>
+            <p id="login-error" class="error-message"></p>
+            <a href="#" id="show-register">회원가입</a>
+            <!-- Google 로그인 버튼 추가 -->
+            <button id="google-login-button">구글 로그인</button>
+        </div>
+
+        <div id="register-form" class="auth-form" style="display:none;">
+            <h2>회원가입</h2>
+            <input type="email" placeholder="이메일" id="register-email">
+            <input type="password" placeholder="비밀번호" id="register-password">
+            <input type="text" placeholder="사용자 이름" id="register-username">
+            <button id="register-button">회원가입</button>
+            <p id="register-error" class="error-message"></p>
+            <a href="#" id="show-login">로그인</a>
+        </div>
+        <div id="login-success" style="display:none">
+            <h2 id="login-success-message"></h2>
+        </div>
+    </div>
+
+     <!-- 메인 페이지 (초기에는 숨겨짐) -->
+     <div id="main-page" style="display:none;">
+        <h2>Welcome, <span id="main-user-nickname"></span>!</h2>
+        <button id="go-to-chat-button">채팅방으로 이동</button>
+        <button id="logout-button">로그아웃</button>
+    </div>
+    <!-- 채팅 UI (초기에는 숨겨짐) -->
+    <div id="chat-container" style="display:none;">
+        <div>
+           <h2>notification</h2>
+           <div id="notice"></div>
+        </div>
+        <div>
+            <h2>채팅방 목록</h2>
+            <ul id="rooms">
+                <!-- 채팅방 목록은 JavaScript로 동적으로 추가됩니다 -->
+            </ul>
+        </div>
+       <div id="chat">GRK Chat</div>
+         <div style="display: flex">
+            <input type="text" id="message" placeholder="input your message">
+            <button id="send-message-button">Send</button>
+            <button id="create-room-button">Create Room</button>
+        </div>
+
+    </div>
+    <script src="http://code.jquery.com/jquery-3.6.1.slim.js"></script>
+    <script src="http://localhost:3000/socket.io/socket.io.js"></script>
+    <script src="http://localhost:3000/script.js"></script>
+</body>
+
+</html>
