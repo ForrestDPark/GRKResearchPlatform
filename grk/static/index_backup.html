@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>GRK Research Project Chat Room</title>
+    </head>
+    <body>
+        <h2> GRK research project chat</h2>
+        <div id="chat">GRK Chat</div>
+        <div>
+            <h2>채팅방 목록</h2>
+            <ul id="rooms"></ul>
+        </div>
+
+        <input type="text" id="message" placeholder="input your message">
+        <button onclick="sendMessage()">전송</button>
+        <!-- 방 만들기 버튼 -->
+        <button onclick="createRoom()">방 만들기</button>
+
+        <!--채팅방 들어올 때  공지 영역 -->
+        <div>
+            <h2>notification </h2>
+            <div id="notice"></div>
+        </div>
+
+    </body>
+    <!-- jquery 로드 -->
+    <script src = "http://code.jquery.com/jquery-3.6.1.slim.js"></script>
+    <!-- socket.io 클라이언트 로드  -->
+    <script src="http://localhost:3000/socket.io/socket.io.js"></script>
+    
+    <script src="http://localhost:3000/script.js"></script>
+    
+
+</html>

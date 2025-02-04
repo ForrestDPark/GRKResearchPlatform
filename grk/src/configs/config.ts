@@ -11,8 +11,6 @@ const yamlConfig: Record<string,any> = yaml.load(
     readFileSync(`${process.cwd()}/envs/config.yaml`, 'utf-8'),
 )
 
-
-
 // 환경 변수 세팅 
 const phase = process.env.NODE_ENV
 
@@ -24,7 +22,6 @@ if (phase === 'local') {
 } else if (phase ==='prod') {
     conf = prod
 }
-
 
 export default () => ({
     ...common,

@@ -41,7 +41,7 @@ import { ProjectModule } from './project/project.module';
 
 
 
-console.log(chalk.red('[ENVIRONMENT SETTING]: '+ process.env.NODE_ENV))
+// console.log(chalk.red('[ENVIRONMENT SETTING]: '+ process.env.NODE_ENV))
 @Module({
   imports: [
     ConfigModule.forRoot({
