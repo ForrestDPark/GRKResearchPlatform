@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>GRK Research Project Chat Room</title>
+    <!-- 공통 스타일 (dashboard.css 또는 common.css) -->
+    <link rel="stylesheet" href="dashboard.css">
+    <!-- 채팅에 필요한 추가 스타일 (선택 사항) -->
+    <link rel="stylesheet" href="message.css"> <!-- 변경: message.css 연결 -->
+    <!-- Google Fonts 추가 -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <h1>Research Platform</h1>
+        <div class="top-right">
+            <button>Settings</button>
+            <button id="logoutButton">Log Out</button>
+        </div>
+    </header>
+
+    <div class="container">
+        <aside class="sidebar">
+            <h2>Menu</h2>
+            <ul>
+                <li><a href="dashboard.html">Dashboard</a></li>  
+                <li><a href="project.html">Project Management</a></li> 
+                <li><a href="task.html">Task Management</a></li> 
+                <li><a href="messages.html">Messages</a></li>
+                <li><a href="quick_actions.html">Quick Actions</a></li>
+                <li><a href="data_management.html">Data Management</a></li> 
+            </ul>
+        </aside>
+
+        <main class="main">
+            <div class="section">
+                <h3>Chat Room</h3>
+                <div id="chat-area">
+                    <!-- 채팅 메시지가 여기에 표시됩니다 -->
+                </div>
+                <input type="text" id="message" placeholder="Input your message">
+                <button id="send-message-button">Send</button>
+            </div>
+            <div class="section">
+                 <h2>Notification</h2>
+                 <div id="notice"></div>
+             </div>
+             <div class="section">
+                  <h2>Chat Room List</h2>
+                  <button id="create-room-button">Create Room</button>
+                 <ul id="rooms">
+                      <!-- 채팅방 목록은 JavaScript로 동적으로 추가됩니다 -->
+                  </ul>
+             </div>
+        </main>
+    </div>
+
+    <footer>
+        <p>© GRK Partners Research Platform.</p>
+    </footer>
+
+    <script src="http://code.jquery.com/jquery-3.6.1.slim.js"></script>
+    <script src="http://localhost:3000/socket.io/socket.io.js"></script>
+    <script src="messages.js"></script>
+</body>
+</html>

@@ -1,0 +1,264 @@
+/* message.css */
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f5f7;
+    color: #333;
+}
+
+header {
+    background-color: #009688;
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 2rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+header h1 {
+    margin: 0;
+}
+
+.top-right {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.top-right button {
+    background-color: white;
+    color: #009688;
+    border: 1px solid #009688;
+    padding: 0.5rem 1rem;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.top-right button:hover {
+    background-color: #00796B;
+    color: white;
+}
+
+.container {
+    display: flex;
+    padding: 2rem;
+}
+
+.sidebar {
+    width: 240px;
+    background-color: #ffffff;
+    padding: 1.5rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.sidebar h2 {
+    font-size: 1.2rem;
+    margin-top: 0;
+    color: #009688;
+}
+
+.sidebar ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.sidebar ul li {
+    margin: 1rem 0;
+}
+
+.sidebar ul li a {
+    text-decoration: none;
+    color: #333;
+    font-weight: 500;
+    padding: 0.5rem;
+    display: block;
+    border-radius: 5px;
+}
+
+.sidebar ul li a:hover {
+    background-color: #e0f2f1;
+    color: #009688;
+}
+
+.main {
+    flex: 1;
+    margin-left: 2rem;
+    background-color: #ffffff;
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.main h3 {
+    font-size: 1.5rem;
+    margin-top: 0;
+    color: #009688;
+}
+
+.button {
+    display: inline-block;
+    padding: 0.5rem 1rem;
+    background-color: #009688;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    margin-top: 1rem;
+    font-size: 0.9rem;
+    font-weight: 500;
+    text-align: center;
+}
+
+.button:hover {
+    background-color: #00796B;
+}
+
+/* 채팅 영역 스타일 */
+#chat-area {
+    border: 1px solid #ddd;
+    padding: 10px;
+    margin-top: 10px;
+    height: 300px;
+    /* 높이 설정 */
+    overflow-y: scroll;
+    /* 스크롤 기능 */
+    display: flex;
+    flex-direction: column; /* 메시지를 세로로 정렬 */
+}
+
+/* 메시지 스타일 (말풍선) */
+.chat-message {
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    margin-bottom: 0.5rem;
+    word-wrap: break-word; /* 긴 텍스트 줄바꿈 */
+    max-width: 70%; /* 최대 너비 제한 */
+    position: relative; /* 가상 요소(말풍선 꼬리)를 위한 기준 위치 설정 */
+}
+
+.chat-message-self {
+    background-color: #e0f2f1;
+    align-self: flex-end; /* 오른쪽 정렬 */
+}
+
+.chat-message-other {
+    background-color: #f0f0f0;
+    align-self: flex-start; /* 왼쪽 정렬 */
+}
+
+/* 말풍선 꼬리 (가상 요소) */
+.chat-message-self::before {
+    content: '';
+    position: absolute;
+    right: 0;
+    bottom: 5px;
+    /* 위치 조정 */
+    border-width: 10px;
+    border-style: solid;
+    border-color: transparent transparent #e0f2f1 transparent;
+    /* 색상 */
+    border-right: 0;
+    width: 0;
+    height: 0;
+}
+
+.chat-message-other::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 5px;
+    /* 위치 조정 */
+    border-width: 10px;
+    border-style: solid;
+    border-color: transparent transparent #f0f0f0 transparent;
+    /* 색상 */
+    border-left: 0;
+    width: 0;
+    height: 0;
+}
+
+/* 닉네임 스타일 */
+.chat-message-nickname {
+    font-size: 0.8rem;
+    color: #777;
+    margin-bottom: 0.2rem;
+}
+
+/* 메시지 입력 스타일 */
+#message {
+    width: 70%;
+    padding: 0.5rem;
+    margin-top: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+/* 보내기 버튼 스타일 */
+#send-message-button {
+    padding: 0.5rem 1rem;
+    background-color: #009688;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-left: 0.5rem;
+}
+
+#send-message-button:hover {
+    background-color: #00796B;
+}
+
+/* 메시지 스타일 (말풍선) */
+.chat-message {
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    margin-bottom: 0.5rem;
+    word-wrap: break-word; /* 긴 텍스트 줄바꿈 */
+    max-width: 70%; /* 최대 너비 제한 */
+    position: relative; /* 가상 요소(말풍선 꼬리)를 위한 기준 위치 설정 */
+}
+
+.chat-message-self {
+    background-color: #e0f2f1;
+    align-self: flex-end; /* 오른쪽 정렬 */
+}
+
+.chat-message-other {
+    background-color: #f0f0f0;
+    align-self: flex-start; /* 왼쪽 정렬 */
+}
+
+/* 말풍선 꼬리 (가상 요소) */
+.chat-message-self::before {
+    content: '';
+    position: absolute;
+    right: 0;
+    bottom: 5px;
+    /* 위치 조정 */
+    border-width: 10px;
+    border-style: solid;
+    border-color: transparent transparent #e0f2f1 transparent;
+    /* 색상 */
+    border-right: 0;
+    width: 0;
+    height: 0;
+}
+
+.chat-message-other::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 5px;
+    /* 위치 조정 */
+    border-width: 10px;
+    border-style: solid;
+    border-color: transparent transparent #f0f0f0 transparent;
+    /* 색상 */
+    border-left: 0;
+    width: 0;
+    height: 0;
+}

@@ -84,9 +84,19 @@ export class AuthController {
     // Login 3. 가드, 세션, 쿠키 사용 
     @UseGuards(LocalAuthGuard) // login3 핸들러 도착전에 이미 검증을 함. 
     @Post('login3')
-    login3(@Request() req ) {
+    login3(@Request() req , @Response() res ) {
         console.log((" >> 사용자 인증이 되었습니다. "))
-        return req.user
+        req.session.username = req.user.username
+        // return req.user
+        return res.redirect('http://localhost:3000/dashboard.html')
+    }
+    @Get('get-username')
+    getUsername(@Request() req, @Response() res) {
+        if (req.session && req.session.username) {
+            return res.json({username: req.session.username})
+        } else {
+            return res.status(404).json({message:'사용자 이름을 찾을수 없습니다. '})
+        }
     }
 
     @UseGuards(AuthenticatedGuard)
@@ -110,13 +120,36 @@ export class AuthController {
         const { user } = req
 
         // 사용자 정보를 쿼리 파라미터에 담아 리다이렉트 
-        const redirectURL = `http://localhost:3000/?user=${JSON.stringify(user)}`
-        console.log('\n 구글 유저 정보 : \n',user)
+        
+        req.session.username= user.username
+        req.session.email = user.email
 
+
+        const redirectURL = `http://localhost:3000/dashboard.html`
+        console.log('\n 구글 유저 정보 : \n',user)
         return res.redirect(redirectURL)
     }
 
+    // 로그아웃 API
+    @Post('logout')
+    async logout(@Request() req, @Response() res) {
+        // 쿠키 삭제
+        res.clearCookie('login');
 
+        // 세션 삭제 (req.session 객체가 있다면)
+        if (req.session) {
+            req.session.destroy((err) => {
+            if (err) {
+                console.error('세션 삭제 중 오류 발생:', err);
+            } else {
+                console.log(('세션 삭제 완료'));
+            }
+            });
+        }
+        console.log(('로그아웃 완료'));
+        return res.status(HttpStatus.OK).json({ message: 'logout success' }); 
+
+  }
 
 }
 

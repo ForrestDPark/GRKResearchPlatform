@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Research Platform Wireframe</title>
+    <link rel="stylesheet" href="dashboard.css">
+</head>
+<body>
+    <header>
+        <h1>Research Platform</h1>
+        <div class="top-right">
+            <button>Settings</button>
+            <button id="logoutButton">Log Out</button>
+        </div>
+    </header>
+
+    <div class="container">
+        <aside class="sidebar">
+            <h2>Menu</h2>
+            <ul>
+                <li><a href="dashboard.html">Dashboard</a></li>  
+                <li><a href="project.html">Project Management</a></li> 
+                <li><a href="task.html">Task Management</a></li> 
+                <li><a href="messages.html">Messages</a></li>
+                <li><a href="quick_actions.html">Quick Actions</a></li>
+                <li><a href="data_management.html">Data Management</a></li> 
+            </ul>
+        </aside>
+
+        <main class="main">
+            <div class="section">
+                <h3>Dashboard</h3>
+                <p>A summary of ongoing projects, deadlines, and recent activity.</p>
+            </div>
+            <div class="section">
+                <h3>Messages</h3>
+                <p>Collaborate with team members and stay updated.</p>
+                <a href="#" class="button" id="openMessagesButton">Open Messages</a>
+            </div>
+            <div class="section" id="chatSection" style="display:none;"> <!-- 채팅 영역 -->
+                <h3>Chat Room</h3>
+                <div id="chat-area">
+                    <!-- 채팅 메시지가 여기에 표시됩니다 -->
+                </div>
+                <input type="text" id="message-input" placeholder="Enter your message">
+                <button id="send-button">Send</button>
+            </div>
+            <div class="section">
+                <h3>Task Management</h3>
+                <p>Manage all tasks efficiently in one place.</p>
+                <a href="#" class="button">View Tasks</a>
+            </div>
+            <div class="section">
+                <h3>Project Management</h3>
+                <p>Manage all your research projects in one place.</p>
+                <a href="#" class="button">Create New Project</a>
+            </div>
+            <div class="section">
+                <h3>Quick Actions</h3>
+                <a href="#" class="button">Manuscript Assistance</a>
+                <a href="#" class="button">IRB Assistance</a>
+                <a href="#" class="button">Protocol Assistance</a>
+            </div>
+        </main>
+    </div>
+
+    <footer>
+        <p>© GRK Partners Research Platform.</p>
+    </footer>
+
+    <script src="dashboard.js"></script>
+</body>
+</html>

@@ -246,6 +246,37 @@
         {
             "language": "powershell",
             "source": [
+                "curl -X DELETE http://localhost:3000/user/delete/test@email.com"
+            ],
+            "outputs": [
+                {
+                    "items": [
+                        {
+                            "mime": "application/vnd.code.notebook.stderr",
+                            "value": [
+                                "  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current",
+                                "                                 Dload  Upload   Total   Spent    Left  Speed",
+                                "100    23  100    23    0     0      0      0 --:--:-- --:--:-- --:--:--     0  6931      0 --:--:-- --:--:-- --:--:--  7666",
+                                ""
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "items": [
+                        {
+                            "mime": "application/vnd.code.notebook.stdout",
+                            "value": [
+                                "{\"raw\":[],\"affected\":1}"
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "language": "powershell",
+            "source": [
                 "### USER login test\n curl -v -X POST \\\n     -H \"Content-Type: application/json\" \\\n     -d '{\n     \"email\":\"forre2@grkcon.com\",\n     \"password\":\"grkcon2025!\"\n     }' \\\n     -b cookies.txt \\\n     http://localhost:3000/auth/login"
             ],
             "outputs": [
@@ -412,6 +443,13 @@
                     ]
                 }
             ]
+        },
+        {
+            "language": "powershell",
+            "source": [
+                "### USER create test wrong input error \ncurl -X POST \\\n    -H \"Content-Type: application/json\" \\\n    -d '{\"username\" :\"test\",\n    \"password\": \"grkcon2025!\",\n    \"email\":\"test@email.com\",\n    \"role\":\"admin\"\n    }' \\\n    http://localhost:3000/user/create"
+            ],
+            "outputs": []
         },
         {
             "language": "markdown",

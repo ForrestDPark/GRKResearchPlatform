@@ -40,15 +40,37 @@
         </div>
     </div>
 
-    <!-- 메인 페이지 (초기에는 숨겨짐) -->
-    <div id="main-page" style="display:none;">
+     <!-- 메인 페이지 (초기에는 숨겨짐) -->
+     <div id="main-page" style="display:none;">
         <h2>Welcome, <span id="main-user-nickname"></span>!</h2>
         <button id="go-to-chat-button">채팅방으로 이동</button>
         <button id="logout-button">로그아웃</button>
     </div>
+    <!-- 채팅 UI (초기에는 숨겨짐) -->
+    <div id="chat-container" style="display:none;">
+        <button id="go-to-dashboard-button">대시보드로 돌아가기</button>
+        <div>
+           <h2>notification</h2>
+           <div id="notice"></div>
+        </div>
+        <div>
+            <h2>chat room list</h2>
+            <button id="create-room-button">Create Room</button>
+            <ul id="rooms">
+                <!-- 채팅방 목록은 JavaScript로 동적으로 추가됩니다 -->
+            </ul>
+        </div>
+       <div id="chat">message</div>
+         <div style="display: flex">
+            <input type="text" id="message" placeholder="input your message">
+            <button id="send-message-button">Send</button>
+            
+        </div>
 
+    </div> 
     <script src="http://code.jquery.com/jquery-3.6.1.slim.js"></script>
-    <script src="script.js"></script>
+    <script src="http://localhost:3000/socket.io/socket.io.js"></script>
+    <script src="http://localhost:3000/script.js"></script>
 </body>
 
 </html>

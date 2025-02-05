@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Research Platform Wireframe</title>
+    <link rel="stylesheet" href="https://cdn.dhtmlx.com/gantt/edge/dhtmlxgantt.css">
+    <link rel="stylesheet" href="project.css">
+
+</head>
+<body>
+
+    <header>
+        <h1>Research Platform</h1>
+        <div class="top-right">
+            <button>Settings</button>
+            <button id="logoutButton">Log Out</button>
+        </div>
+    </header>
+
+    <div class="container">
+        <aside class="sidebar">
+            <h2>Menu</h2>
+            <ul>
+                <li><a href="dashboard.html">Dashboard</a></li>  
+                <li><a href="project.html">Project Management</a></li> 
+                <li><a href="task.html">Task Management</a></li> 
+                <li><a href="messages.html">Messages</a></li>
+                <li><a href="quick_actions.html">Quick Actions</a></li>
+                <li><a href="data_management.html">Data Management</a></li> 
+            </ul>
+        </aside>
+
+        <main class="main">
+            <div class="section">
+                <h3>Project Management</h3>
+                <p>Manage all your research projects in one place.</p>
+                <div id="gantt_here"></div>
+            </div>
+        </main>
+    </div>
+
+    <footer>
+        <p>&copy; GRK Partners Research Platform.</p>
+    </footer>
+    <script src="project.js"></script>
+    <script src="https://cdn.dhtmlx.com/gantt/edge/dhtmlxgantt.js"></script>
+    <script>
+        gantt.init("gantt_here");
+        function getRandomDate(start, end) {
+            const randomTime = start.getTime() + Math.random() * (end.getTime() - start.getTime());
+            const randomDate = new Date(randomTime);
+            return randomDate.toISOString().split('T')[0]; // Format as YYYY-MM-DD
+        }
+        const startDate = new Date("2025-01-01");
+        const endDate = new Date("2025-12-31");
+        gantt.parse({
+            data: [
+                { id: 1, text: "Research Proposal", start_date: getRandomDate(startDate, endDate), duration: 4, progress: 0.4 },
+                { id: 2, text: "Experiment Setup", start_date: getRandomDate(startDate, endDate), duration: 4, progress: 0.2 },
+                { id: 3, text: "Data Analysis", start_date: getRandomDate(startDate, endDate), duration: 4, progress: 0.1 }
+            ]
+        });
+    </script>
+</body>
+</html>
