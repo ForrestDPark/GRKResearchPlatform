@@ -7,7 +7,23 @@ let nickname = null;
 let currentRoom = '';
 let mySocketId = null; // 나의 socket.id 저장 변수
 
+
 document.addEventListener('DOMContentLoaded', function () {
+  //nickname
+  nickname = localStorage.getItem('nickname');
+  if (!nickname) {
+      // 서버에 닉네임 요청 (예: /auth/get-username)
+      fetch('http://localhost:3000/auth/get-username')
+      .then(response => response.json())
+      .then(data => {
+          if (data.username) {
+              nickname = data.username;
+              localStorage.setItem('nickname', nickname);
+          }
+      });
+  }
+  username = nickname
+
   // 로그아웃 버튼 클릭 이벤트
   const logoutButton = document.getElementById('logout-button');
     if (logoutButton) {

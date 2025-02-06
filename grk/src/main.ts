@@ -57,7 +57,9 @@ async function bootstrap() {
   
   // HTML form 파일을 제공할 staticAsset 
   app.useStaticAssets(join(__dirname,'..','static'))
-  
+  // app.setBaseViewsDir(join(__dirname, '..', 'views'))
+  // 템플릿 엔진 설정 
+  // app.setViewEngine('ejs')
   
   await app.listen(configService.get("SERVER_PORT"), () => {console.log("Server start!")})
 }
